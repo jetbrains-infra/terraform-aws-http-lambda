@@ -4,6 +4,7 @@ variable "function_subdomain" {}
 variable "name" {}
 variable "handler" {}
 variable "base_domain" {}
+variable "tmp_bucket" {}
 variable "envvars" {
   type    = map(string)
   default = {}
@@ -32,6 +33,7 @@ locals {
   handler        = var.handler
   memory_size    = var.memory_size
   timeout        = var.timeout
+  bucket         = var.tmp_bucket
   envvars = merge({
     NAME   = var.name,
     MODULE = "LambdaDeployment v0.1.0"

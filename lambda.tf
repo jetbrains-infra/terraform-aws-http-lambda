@@ -8,12 +8,13 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 resource "aws_lambda_function" "function" {
-  filename         = local.lambda_archive
   function_name    = local.name
   role             = aws_iam_role.role.arn
   handler          = local.handler
   runtime          = local.runtime
   source_code_hash = filebase64sha256(local.lambda_archive)
+  s3_bucket        = aws_s3_bucket_object.lambda.bucket
+  s3_key           = aws_s3_bucket_object.lambda.key
   memory_size      = local.memory_size
   timeout          = local.timeout
 
